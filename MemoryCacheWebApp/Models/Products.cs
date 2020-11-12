@@ -13,7 +13,9 @@ namespace MemoryCacheWebApp.Models
     {
         [Key]
         public int ProductID { get; set; }
+        [Required(ErrorMessage = "Required Field")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Required Field")]
         public string ProductNumber { get; set; }
     }
 }

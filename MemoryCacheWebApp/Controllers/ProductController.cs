@@ -9,11 +9,11 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace MemoryCacheWebApp.Controllers
 {
-    public class CacheController : Controller
+    public class ProductController : Controller
     {
         IMemoryCache _memoryCache;
         MemoryCacheContext _memoryCacheContext;
-        public CacheController(IMemoryCache memoryCache, MemoryCacheContext memoryCacheContext)
+        public ProductController(IMemoryCache memoryCache, MemoryCacheContext memoryCacheContext)
         {
             _memoryCacheContext = memoryCacheContext;
             _memoryCache = memoryCache;
@@ -33,7 +33,7 @@ namespace MemoryCacheWebApp.Controllers
                     ProductID = x.ProductID,
                     ProductNumber = x.ProductNumber,
                     Name = x.Name
-                }).ToList();
+                }).OrderByDescending(x=> x.ProductID).Take(10).ToList();
                 var options = new MemoryCacheEntryOptions
                 {
                     AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(1),
@@ -42,6 +42,25 @@ namespace MemoryCacheWebApp.Controllers
                 _memoryCache.Set<List<Products>>("products", products, options);
             }
             return View(products);
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Products product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(product);
+            }
+            _memoryCacheContext.Products.Add(product);
+            _memoryCacheContext.SaveChanges();
+            _memoryCache.Remove("products");
+            return RedirectToAction("Index", "Product");
         }
     }
 }

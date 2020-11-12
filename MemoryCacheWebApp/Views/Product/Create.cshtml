@@ -1,0 +1,25 @@
+﻿@model MemoryCacheWebApp.Models.Products
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Add New Product</h1>
+<form asp-action="Create" asp-controller="Product" method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <input type="text" asp-for="ProductNumber" class="form-control" />
+                <span asp-validation-for="ProductNumber" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</form>
+
