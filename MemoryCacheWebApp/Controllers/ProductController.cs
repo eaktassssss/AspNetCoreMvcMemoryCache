@@ -49,14 +49,11 @@ namespace MemoryCacheWebApp.Controllers
         {
             return View();
         }
-
         [HttpPost]
         public ActionResult Create(Products product)
         {
             if (!ModelState.IsValid)
-            {
                 return View(product);
-            }
             _memoryCacheContext.Products.Add(product);
             _memoryCacheContext.SaveChanges();
             _memoryCache.Remove("products");
