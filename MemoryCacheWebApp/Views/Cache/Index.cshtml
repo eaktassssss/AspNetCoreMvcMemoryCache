@@ -1,0 +1,26 @@
+﻿@model List<MemoryCacheWebApp.Models.Products>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ProductID</th>
+            <th scope="col">Name</th>
+            <th scope="col">ProductNumber</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProductID</td>
+                <td>@item.Name</td>
+                <td>@item.ProductNumber</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
